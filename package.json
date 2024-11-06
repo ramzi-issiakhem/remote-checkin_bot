@@ -1,0 +1,17 @@
+{
+  "name": "remote-hr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node deploy-commands.js && node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7"
+  }
+}
