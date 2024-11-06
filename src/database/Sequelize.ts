@@ -7,3 +7,9 @@ export const sequelize = new Sequelize('database', 'username', 'password', {
 	logging: false,
 	storage: 'database.sqlite',
 });
+
+const force = process.argv.includes('--force') || process.argv.includes('-f');
+
+sequelize.sync({force}).then(async () => {
+	
+})
