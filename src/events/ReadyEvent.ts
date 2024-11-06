@@ -2,7 +2,7 @@ import { Events } from "discord.js";
 import { BaseEvent } from "./BaseEvent";
 import { deployCommands } from "../deploy-commands";
 import { config } from "../config";
-import { Employees } from "../database/models/Employee";
+import { Employees } from "../database/models/Employees";
 
 
 
