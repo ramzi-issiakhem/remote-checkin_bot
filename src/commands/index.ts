@@ -1,5 +1,6 @@
 import { CacheType, CommandInteraction, SlashCommandBuilder } from 'discord.js'
 import { CheckInCommand } from './CheckInCommand'
+import { RemoteRegisterCommand } from './RemoteRegisterCommand'
 
 
 
@@ -9,7 +10,8 @@ export type CommandType = {
 } 
 
 export const commands: Record<string,CommandType> = {
-    "check-in": new CheckInCommand()
+    "check-in": new CheckInCommand(),
+    "remote-register": new RemoteRegisterCommand()
 }
 
     
