@@ -17,7 +17,6 @@ export class InteractionCreateEvent extends BaseEvent {
 		
 			if (!interaction.isChatInputCommand()) return;
 
-			console.log(commands);
 			
 			const command = commands[interaction.commandName];
 			

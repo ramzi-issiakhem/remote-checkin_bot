@@ -1,7 +1,5 @@
-import { ActionRowBuilder, BaseSelectMenuBuilder, CacheType, CommandInteraction, MessageActionRowComponentBuilder, ModalActionRowComponentBuilder, ModalBuilder, SlashCommandBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
-import { CommandType } from '.';
+import { ActionRowBuilder, CacheType, CommandInteraction, MessageActionRowComponentBuilder, ModalBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
 import { Command } from './BaseCommand';
-import { Employees } from '../database/models/Employees';
 
 
 
@@ -42,14 +40,19 @@ export class RemoteRegisterCommand extends Command {
 					.setLabel('Fatoura')
 					.setValue("12")
 			);
-		
-			const row = new ActionRowBuilder<MessageActionRowComponentBuilder>()
+	
+      const firstNameRow = new ActionRowBuilder()
+          .addComponents(firstNameInput);
+
+          const lastNameRow = new ActionRowBuilder()
+          .addComponents(lastNameInput);
+
+			const companyRow = new ActionRowBuilder<MessageActionRowComponentBuilder>()
 			.addComponents(companySelector);
 
 		
 		await interaction.reply({
-			content: "Choose your company",
-			components: [row]
+			components: [firstNameRow,lastNameRow,companyRow]
 		});
 	}
 }

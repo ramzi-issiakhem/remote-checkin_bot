@@ -1,7 +1,7 @@
 import { CacheType, CommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { CommandType } from '.';
 import { Command } from './BaseCommand';
-import { Employees } from '../database/models/Employees';
+import { Employee } from '../database/models/Employee';
 
 
 
@@ -17,7 +17,7 @@ export class CheckInCommand extends Command {
 	async execute(interaction: CommandInteraction<CacheType>): Promise<void> {
 
 		
-		const employee = await Employees.findOne({where: {"user_id": interaction.user.id}});
+		const employee = await Employee.findOne({where: {"user_id": interaction.user.id}});
 		if (!employee) {
 			await interaction.user.send("You need first to register yourself as an employee by executing /remote-register");
 			await interaction.reply({
