@@ -1,4 +1,4 @@
-import { Client, Events, GatewayIntentBits } from 'discord.js';
+import { Client, GatewayIntentBits } from 'discord.js';
 import { config } from './config'
 import initDB from './database/initDb';
 import { events } from './events';
@@ -22,6 +22,7 @@ eventsObj.forEach((event: BaseEvent) => {
 		client.on(event.name, (args) => event.execute(args));
 	}
 });
+
 
 
 // Log in to Discord with your client's token
