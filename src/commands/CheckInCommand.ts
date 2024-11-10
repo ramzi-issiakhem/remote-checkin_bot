@@ -1,9 +1,8 @@
-import { CacheType, CommandInteraction, SlashCommandBuilder } from 'discord.js';
-import { CommandType } from '.';
+import { CacheType, CommandInteraction } from 'discord.js';
 import { Command } from './BaseCommand';
-import Employee from '../database/models/Employee';
 import Activity from '../database/models/Activity';
 import { ActivityTypeEnum } from '../database/types';
+import { getEmployeeByUserId } from '../database/dal/EmployeeDal';
 
 
 
@@ -22,7 +21,7 @@ export class CheckInCommand extends Command {
     if (!interaction.isChatInputCommand()) return;
 
     //Verify if the user is registered in a company
-    const employee = await Employee.findOne({ where: { "user_id": "fdsfds" } });
+    const employee = await getEmployeeByUserId(interaction.user.id);
     if (!employee) {
       await interaction.user.send("You need first to register yourself as an employee by executing /remote-register");
       await interaction.reply({

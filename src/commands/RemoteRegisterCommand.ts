@@ -1,4 +1,5 @@
 import { ActionRowBuilder, CacheType, CommandInteraction, MessageActionRowComponentBuilder, ModalActionRowComponentBuilder, ModalBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
+import { getEmployeeByUserId } from '../database/dal/EmployeeDal';
 import Company from '../database/models/Company';
 import Employee from '../database/models/Employee';
 import { Command } from './BaseCommand';
@@ -27,7 +28,7 @@ export class RemoteRegisterCommand extends Command {
       return;
     }
 
-    const employee = await Employee.findOne({ where: { user_id: interaction.user.id } });
+    const employee = await getEmployeeByUserId(interaction.user.id);
     if (employee != null) {
       await interaction.reply({
         content: "Error: You already registered as an employee of the company N°: " + employee.company_id,

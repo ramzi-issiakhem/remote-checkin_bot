@@ -3,12 +3,12 @@ import { EmployeeInput } from "../types";
 
 
 
-export const create = async (payload: EmployeeInput): Promise<Employee> => {
+export const createEmployee = async (payload: EmployeeInput): Promise<Employee> => {
   const employee = Employee.create(payload);
   return employee;
 }
 
-export const getByUserId = async (userId: number): Promise<Employee|null> => {
+export const getEmployeeByUserId = async (userId: string): Promise<Employee|null> => {
 
   const employee =  await Employee.findOne({
     where: {

@@ -4,7 +4,7 @@ import { ActivityInput, ActivityOutput, ActivityTypeEnum } from "../types";
 
 
 
-export const create = async (payload: ActivityInput): Promise<Activity> => {
+export const createActivity = async (payload: ActivityInput): Promise<Activity> => {
   const activity = Activity.create(payload);
   return activity;
 }
