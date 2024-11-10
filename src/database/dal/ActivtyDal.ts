@@ -15,7 +15,7 @@ export const getAllActivitiesByEmployeeId = async (employeeId: number, created_a
     where: {
       "employee_id": employeeId,
       ...(created_at && {
-        "created_at": {
+        "createdAt": {
           [Op.gte]: created_at
         }
       })

@@ -13,6 +13,18 @@ export interface ActivityOutput extends Required<ActivityAttributes> {}
 
 
 
+//Define the Employee Model type
+export interface EmployeeAttributes {
+    id: number,
+    user_id: number,
+    first_name: string,
+    last_name:string,
+    email: string,
+    company_id: number
+}
+export interface EmployeeInput extends Required<EmployeeAttributes> {}
+export interface EmployeeOutput extends Required<EmployeeAttributes> {}
+
 
 export enum ActivityTypeEnum {
   CheckIn = "check-in",
