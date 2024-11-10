@@ -32,6 +32,11 @@ Employee.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
+   user_id: {
+    type: DataTypes.STRING,
+    unique: true
+  },
+
   email: {
     type: DataTypes.TEXT,
     unique: true

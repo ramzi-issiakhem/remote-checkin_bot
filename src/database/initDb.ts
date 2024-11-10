@@ -4,7 +4,7 @@ import  Company  from "./models/Company";
 import Employee  from "./models/Employee";
 
 
-const isDev = config.APP_ENV === "dev";
+const isDev = config.APP_ENV != "dev";
 
 
 const initDB = () => {
@@ -16,7 +16,6 @@ const initDB = () => {
     Activity.sync({force: isDev});
     Employee.sync({force: isDev});
     Company.sync({force: isDev});
-
 
 }
 

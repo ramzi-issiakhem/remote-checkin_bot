@@ -4,7 +4,7 @@ import { sequelizeConnection } from "../config";
 
 class Company extends Model {
   public id!: number
-  public name!: number
+  public name!: string
 
   // timestamps!
   public readonly createdAt!: Date;
