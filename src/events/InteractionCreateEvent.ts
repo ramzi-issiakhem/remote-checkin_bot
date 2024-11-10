@@ -17,12 +17,15 @@ export class InteractionCreateEvent extends BaseEvent {
 
   async execute(interaction: any): Promise<any> {
 
-    if (interaction.isModalSubmit()) {
+    if (interaction.isModalSubmit() || interaction.isButton() || interaction.isStringSelectMenu()) {
+
+
+
       const submitModel = submits[interaction.customId];
       try {
         await submitModel.execute(interaction);
       } catch (error) {
-        console.log(error);
+        console.log("Error", error);
         if (interaction.replied || interaction.deferred) {
           await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
         } else {

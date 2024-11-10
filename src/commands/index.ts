@@ -1,6 +1,6 @@
 import { CacheType, CommandInteraction, SlashCommandBuilder } from 'discord.js'
 import { CheckInCommand } from './CheckInCommand'
-import { RemoteRegisterCommand } from './register/RemoteRegisterCommand'
+import { RemoteRegisterCommand } from './RemoteRegisterCommand'
 
 
 

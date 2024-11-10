@@ -4,7 +4,7 @@ import initDB from './database/initDb';
 import { events } from './events';
 import { BaseEvent } from './events/BaseEvent';
 
-
+//TODO MODIFY THE GLOBAL VARIABLE LOGIC
 
 initDB();
 
