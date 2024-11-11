@@ -6,7 +6,9 @@ import { Optional } from "sequelize";
 export interface ActivityAttributes {
     id: number,
     type: ActivityTypeEnum,
-    employee_id: number
+    employee_id: number,
+    createdAt?: Date,
+    updatedAt?: Date,
 }
 export interface ActivityInput extends Optional<ActivityAttributes, 'id' | 'type' | 'employee_id'> {}
 export interface ActivityOutput extends Required<ActivityAttributes> {}
@@ -16,13 +18,13 @@ export interface ActivityOutput extends Required<ActivityAttributes> {}
 //Define the Employee Model type
 export interface EmployeeAttributes {
     id: number,
-    user_id: number,
+    user_id: string,
     first_name: string,
     last_name:string,
     email: string,
     company_id: number
 }
-export interface EmployeeInput extends Required<EmployeeAttributes> {}
+export interface EmployeeInput extends Optional<EmployeeAttributes,'id'> {}
 export interface EmployeeOutput extends Required<EmployeeAttributes> {}
 
 

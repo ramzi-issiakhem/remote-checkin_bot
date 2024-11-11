@@ -1,8 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelizeConnection } from "../config";
+import { EmployeeAttributes, EmployeeInput } from "../types";
 
 
- class Employee extends Model {
+ class Employee extends Model<EmployeeAttributes,EmployeeInput> {
   public id!: number
   public user_id!: number
   public first_name!: string

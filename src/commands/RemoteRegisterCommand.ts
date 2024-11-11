@@ -11,7 +11,7 @@ export class RemoteRegisterCommand extends Command {
   constructor() {
     super({
       name: "remote-register",
-      description: 'Register yourself as an employee'
+      description: 'Register yourself as an employee',
     })
   }
 
