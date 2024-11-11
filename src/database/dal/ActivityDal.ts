@@ -9,6 +9,15 @@ export const createActivity = async (payload: ActivityInput): Promise<Activity> 
   return activity;
 }
 
+
+export const getLastActivityFromEmployeeId = async (employeeId: number) => {
+  const lastActivity = await Activity.findOne({
+    where: { "employee_id": employeeId },
+    order: [["createdAt", 'DESC']]
+  });
+
+  return lastActivity;
+}
 export const getAllActivitiesByEmployeeId = async (employeeId: number, created_at?: Date): Promise<ActivityOutput[]> => {
 
   const activities = await Activity.findAll({
