@@ -1,11 +1,12 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelizeConnection } from "../config";
-import { ActivityTypeEnum } from "../types";
+import { ActivityAttributes, ActivityInput, ActivityTypeEnum } from "../types";
+  
 
 
 
 
-class Activity extends Model {
+class Activity extends Model<ActivityAttributes,ActivityInput> {
   public id!: number
   public type!: ActivityTypeEnum
   public employee_id!: number
@@ -29,15 +30,7 @@ Activity.init({
     type: DataTypes.ENUM(...Object.values(ActivityTypeEnum)),
     allowNull: false
   },
-  last_name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.TEXT,
-    unique: true
-  },
-  company_id: {
+  employee_id: {
     type: DataTypes.INTEGER,
     allowNull: false
   }
