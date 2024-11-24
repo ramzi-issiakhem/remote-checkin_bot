@@ -60,6 +60,13 @@ export const handleTimeOption = async (interaction: CommandInteraction) :  Promi
 
     today.setHours(hours);
     today.setMinutes(minutes);
+
+    if (today.getTime() >= (new Date()).getTime()) {
+
+      await interaction.reply({ "content": "You cannot define a time that is in the futuure", ephemeral: true });
+      await interaction.user.send("You cannot define a time that is in the futuure");
+      return null;
+    }
   };
 
   return { today: today, createdAtString: createdAtString };

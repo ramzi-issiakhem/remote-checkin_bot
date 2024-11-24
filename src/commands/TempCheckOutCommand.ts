@@ -1,6 +1,6 @@
 import { Command } from './BaseCommand';
 import { ActivityTypeEnum } from '../database/types';
-import { createActivity } from '../database/dal/ActivityDal';
+import { createActivity, getLastActivityFromEmployeeId } from '../database/dal/ActivityDal';
 import { handleTimeOption, isStringValidTime, verifyEmployeeLastActivityDifferent, verifyEmployeeRegisteredAndRetrieve } from '../utils/helpers';
 import { CacheType, CommandInteraction } from 'discord.js';
 
@@ -39,6 +39,21 @@ export class TempCheckOutCommand extends Command {
     const data = await handleTimeOption(interaction);
     if (!data) return;
     const { today, createdAtString } = data;
+
+    const lastActivity = await getLastActivityFromEmployeeId(employee.id);
+    if (!lastActivity) {
+      await interaction.reply({ content: "You can't temporary checkout witout being checked-in" });
+      return;
+    }
+
+    if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckIn)) {
+      const activityDate = new Date(lastActivity.createdAt);
+
+      if (today.getTime() < activityDate.getTime()) {
+        interaction.reply({ content: "You can't register a temporary checkout before a registered checkin" });
+        return;
+      }
+    }
 
 
     await createActivity({

@@ -18,6 +18,19 @@ export const getLastActivityFromEmployeeId = async (employeeId: number) => {
 
   return lastActivity;
 }
+
+export const getAllActivitiesAfterCertainDate = async (date: Date) => {
+  const activities = Activity.findAll({
+    where: {
+      "createdAt": {
+        [Op.gte]: date
+      }
+    },
+  });
+
+  return activities;
+}
+
 export const getAllActivitiesByEmployeeId = async (employeeId: number, created_at?: Date): Promise<ActivityOutput[]> => {
 
   const activities = await Activity.findAll({
