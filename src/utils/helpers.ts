@@ -1,9 +1,10 @@
 import { log } from "console";
-import { ActivityType, CacheType, CommandInteraction, messageLink } from "discord.js";
+import { ActivityType, BaseInteraction, CacheType, CommandInteraction, GuildMember, Interaction, messageLink, PermissionsBitField } from "discord.js";
 import { exit } from "process";
 import { getLastActivityFromEmployeeId } from "../database/dal/ActivityDal";
 import { getEmployeeByUserId } from "../database/dal/EmployeeDal";
 import { ActivityTypeEnum } from "../database/types";
+import { roleName } from "./constants";
 
 
 export const isStringValidTime = (time: string): boolean => {
@@ -37,11 +38,11 @@ export const verifyEmployeeLastActivityDifferent = async (interaction: CommandIn
 
       return null;
     }
-  }
+  } 1
   return true;
 }
 
-export const handleTimeOption = async (interaction: CommandInteraction) :  Promise<{today: Date, createdAtString: string|undefined} | null> => {
+export const handleTimeOption = async (interaction: CommandInteraction): Promise<{ today: Date, createdAtString: string | undefined } | null> => {
 
   const today = new Date();
   const createdAtString = interaction.options.get('time')?.value as string | undefined;
@@ -51,7 +52,7 @@ export const handleTimeOption = async (interaction: CommandInteraction) :  Promi
     if (!isStringValidTime(createdAtString)) {
       await interaction.reply({ "content": "The 'time' format is incorrect, please write in a HH:mm format. Ex: 18:00", ephemeral: true });
       await interaction.user.send("The 'time' format is incorrect, please write in a HH:mm format. Ex: 18:00");
-      
+
       return null;
     }
 
@@ -71,3 +72,31 @@ export const handleTimeOption = async (interaction: CommandInteraction) :  Promi
 
   return { today: today, createdAtString: createdAtString };
 }
+
+
+export const doMemberHasRoleByName = (interaction: Interaction, name: string): boolean => {
+  // Ensure interaction is a command interaction and the member is a GuildMember
+  if (!interaction.isCommand() || !(interaction.member instanceof GuildMember)) {
+    return false;
+  }
+
+  // Check if the member has the role by name
+  return interaction.member.roles.cache.some(role => role.name === name);
+};
+
+
+export const grantAccessToManagmentCommand = (interaction: Interaction) => {
+
+  if (!interaction.isCommand() || !(interaction.member instanceof GuildMember)) {
+    return ;
+  }
+
+  const hasAccess = doMemberHasRoleByName(interaction, roleName) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
+
+
+  if (!hasAccess) {
+    interaction.reply({ content: "You cannot execute this function, you do not have permissions ! " });
+    return;
+  }
+}
+

@@ -6,6 +6,8 @@ import Activity from '../database/models/Activity';
 import internal from 'stream';
 import { ActivityTypeEnum } from '../database/types';
 import Employee from '../database/models/Employee';
+import { roleName } from '../utils/constants';
+import { doMemberHasRoleByName, grantAccessToManagmentCommand } from '../utils/helpers';
 
 
 
@@ -27,7 +29,10 @@ export class ReportCommand extends Command {
 
     if (!interaction.isChatInputCommand()) return;
 
-    //TODO Verify if the user has a specific role
+    
+    grantAccessToManagmentCommand(interaction);
+
+
     const dateOption: number = interaction.options.get("report-days", true).value as number;
     const userId = interaction.options.get("user-id")?.value as string | undefined;
 

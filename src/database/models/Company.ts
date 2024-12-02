@@ -5,6 +5,7 @@ import { sequelizeConnection } from "../config";
 class Company extends Model {
   public id!: number
   public name!: string
+  public description!: string
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -23,7 +24,12 @@ Company.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false
-  }}, {
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: true
+  }},
+  {
   timestamps: true,
   sequelize: sequelizeConnection,
   paranoid: true

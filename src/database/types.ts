@@ -33,3 +33,18 @@ export enum ActivityTypeEnum {
   CheckOut = "check-out",
   TempCheckOut = "temp-check-out"
 }
+
+
+
+//Define the Company Model type
+export interface CompanyAttributes {
+    id: number,
+    name: string,
+    description?: string,
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+export interface CompanyInput extends Optional<CompanyAttributes, 'id' | 'name'> {}
+export interface CompanyOutput extends Required<CompanyAttributes> {}
+
+
