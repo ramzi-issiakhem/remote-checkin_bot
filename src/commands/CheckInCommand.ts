@@ -1,8 +1,9 @@
-import { CacheType, CommandInteraction } from 'discord.js';
+import { Activity, CacheType, CommandInteraction } from 'discord.js';
 import { Command } from './BaseCommand';
 import { ActivityTypeEnum } from '../database/types';
-import { createActivity } from '../database/dal/ActivityDal';
+import { createActivity, getLastActivityFromEmployeeId } from '../database/dal/ActivityDal';
 import { handleTimeOption, isStringValidTime, verifyEmployeeLastActivityDifferent, verifyEmployeeRegisteredAndRetrieve } from '../utils/helpers';
+import { log } from 'console';
 
 
 
@@ -31,10 +32,20 @@ export class CheckInCommand extends Command {
     const response = await verifyEmployeeLastActivityDifferent(interaction, employee.id, ActivityTypeEnum.CheckIn, 'You are already checked in, please checkout before checking again !');
     if (!response) return;
 
-
     const data = await handleTimeOption(interaction);
     if (!data) return
-    const {today,createdAtString} = data;
+    const { today, createdAtString } = data;
+
+
+    const lastActivity = await getLastActivityFromEmployeeId(employee.id);
+    if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckOut || lastActivity.type == ActivityTypeEnum.TempCheckOut)) {
+      const activityDate = new Date(lastActivity.createdAt);
+
+      if (today.getTime() < activityDate.getTime()) {
+        interaction.reply({ content: "You can't register a checkin before a registered checkout/temporary checkout" });
+        return;
+      }
+    }
 
 
     await createActivity({

@@ -18,9 +18,6 @@ export class ReadyEvent extends BaseEvent {
     async execute(data: any): Promise<any> {
 		  console.log(`Ready! Logged in as ${data.user.tag}`);
 		  await deployCommands({guildId: config.GUILD_ID})
-          // Employee.sync();
-          // Activities.sync();
-          // Companies.sync(); 
     }
 
 

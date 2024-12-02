@@ -39,13 +39,26 @@ export class CheckOutCommand extends Command {
       return
     }
 
-
-
-
-
     const data = await handleTimeOption(interaction);
     if (!data) return
     const { today, createdAtString } = data;
+
+
+    const lastActivity = await getLastActivityFromEmployeeId(employee.id);
+    if (!lastActivity) {
+      await interaction.reply({content: "You can't checkout witout being checked-in"});
+      return;
+    }
+
+    if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckIn)) {
+      const activityDate = new Date(lastActivity.createdAt);
+
+      if (today.getTime() < activityDate.getTime()) {
+        interaction.reply({ content: "You can't register a checkout before a registered checkin" });
+        return;
+      }
+    }
+
     await createActivity({
       type: ActivityTypeEnum.CheckOut,
       employee_id: employee.get("id"),
