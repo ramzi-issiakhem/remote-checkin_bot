@@ -5,13 +5,9 @@ import Company from './database/models/Company';
 import { events } from './events';
 import { BaseEvent } from './events/BaseEvent';
 
-//TODO MODIFY THE GLOBAL VARIABLE LOGIC
-//TODO REFACTOR AND COMMENT:
 initDB();
 
 // Create a new client instance
-  
-
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 const eventsObj = Object.values(events);

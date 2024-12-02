@@ -4,7 +4,7 @@ import  Company  from "./models/Company";
 import Employee  from "./models/Employee";
 
 
-const isDev = config.APP_ENV != "dev";
+const forcePurge = config.PURGE_AFTER_BOOT;
 
 
 const initDB = () => {
@@ -13,9 +13,9 @@ const initDB = () => {
     Activity.belongsTo(Employee,{foreignKey: "employee_id", as: "employee"});
     Employee.belongsTo(Company,{foreignKey: "company_id",as: "company"});
 
-    Activity.sync({force: isDev});
-    Employee.sync({force: isDev});
-    Company.sync({force: isDev});
+    Activity.sync({force: forcePurge});
+    Employee.sync({force: forcePurge});
+    Company.sync({force: forcePurge});
 
 }
 
