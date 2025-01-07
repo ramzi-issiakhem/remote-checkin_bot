@@ -88,15 +88,17 @@ export const doMemberHasRoleByName = (interaction: Interaction, name: string): b
 export const grantAccessToManagmentCommand = (interaction: Interaction) => {
 
   if (!interaction.isCommand() || !(interaction.member instanceof GuildMember)) {
-    return ;
+    return false;
   }
 
-  const hasAccess = doMemberHasRoleByName(interaction, roleName) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
+  const hasAccess = doMemberHasRoleByName(interaction, roleName); // || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
 
 
   if (!hasAccess) {
-    interaction.reply({ content: "You cannot execute this function, you do not have permissions ! " });
-    return;
+    interaction.reply({ content: "You cannot execute this function, you do not have permissions ! ",ephemeral: true });
+    return false;
   }
+
+  return true;
 }
 

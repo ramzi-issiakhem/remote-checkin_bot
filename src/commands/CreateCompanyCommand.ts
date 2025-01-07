@@ -24,7 +24,7 @@ export class CreateCompanyCommand extends Command {
 
     if (!interaction.isChatInputCommand()) return;
 
-    grantAccessToManagmentCommand(interaction);
+    if (!grantAccessToManagmentCommand(interaction)) return ;
 
     const companyName = interaction.options.get('name')?.value as string | undefined;
     const companyDescription = interaction.options.get('description')?.value as string | undefined;

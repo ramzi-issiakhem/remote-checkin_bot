@@ -30,7 +30,7 @@ export class ReportCommand extends Command {
     if (!interaction.isChatInputCommand()) return;
 
 
-    grantAccessToManagmentCommand(interaction);
+    if (!grantAccessToManagmentCommand(interaction)) return ;
 
 
     const dateOption: number = interaction.options.get("report-days", true).value as number;
