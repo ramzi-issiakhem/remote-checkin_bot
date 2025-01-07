@@ -42,7 +42,7 @@ export class CheckInCommand extends Command {
       const activityDate = new Date(lastActivity.createdAt);
 
       if (today.getTime() < activityDate.getTime()) {
-        interaction.reply({ content: "You can't register a checkin before a registered checkout/temporary checkout" });
+        interaction.reply({ content: "You can't register a checkin before a registered checkout/temporary checkout",ephemeral: true });
         return;
       }
     }

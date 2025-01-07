@@ -30,7 +30,10 @@ export class CreateCompanyCommand extends Command {
     const companyDescription = interaction.options.get('description')?.value as string | undefined;
 
     if (!companyName) {
-      interaction.reply("You need to define the name of the company you wanna create in the database");
+      interaction.reply({
+        content: "You need to define the name of the company you wanna create in the database",
+        ephemeral: true
+      });
       return;
     }
 

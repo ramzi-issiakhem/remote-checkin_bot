@@ -33,7 +33,7 @@ export class TempCheckOutCommand extends Command {
 
     const lastActivity = await getLastActivityFromEmployeeId(employee.id);
     if (!lastActivity) {
-      await interaction.reply({ content: "You can't temporary checkout witout being checked-in" });
+      await interaction.reply({ content: "You can't temporary checkout witout being checked-in",ephemeral: true });
       return;
     }
 

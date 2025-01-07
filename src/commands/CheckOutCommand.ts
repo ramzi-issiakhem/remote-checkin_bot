@@ -46,7 +46,7 @@ export class CheckOutCommand extends Command {
 
     const lastActivity = await getLastActivityFromEmployeeId(employee.id);
     if (!lastActivity) {
-      await interaction.reply({content: "You can't checkout witout being checked-in"});
+      await interaction.reply({content: "You can't checkout witout being checked-in",ephemeral: true});
       return;
     }
 
@@ -54,7 +54,7 @@ export class CheckOutCommand extends Command {
       const activityDate = new Date(lastActivity.createdAt);
 
       if (today.getTime() < activityDate.getTime()) {
-        interaction.reply({ content: "You can't register a checkout before a registered checkin" });
+        interaction.reply({ content: "You can't register a checkout before a registered checkin",ephemeral: true });
         return;
       }
     }

@@ -48,7 +48,8 @@ export class RegisterModalSubmit extends BaseModalSubmit {
 
      await interaction.reply({
       content: "Select the company your are working on",
-      components: [row]
+      components: [row],
+      ephemeral: true
     });
 
 

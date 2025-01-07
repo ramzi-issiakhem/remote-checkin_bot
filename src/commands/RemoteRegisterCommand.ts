@@ -21,7 +21,7 @@ export class RemoteRegisterCommand extends Command {
 
     if (await Company.count() < 1) {
       await interaction.reply({
-        content: "Erroor: No Company exist, please ask your administrator to create them !",
+        content: "Error: No Company exist, please ask your administrator to create them !",
         ephemeral: true
       })
 

@@ -33,8 +33,11 @@ export class RegisterCompanySelector extends BaseModalSubmit {
       company_id: parseInt(selectedCompanyId),
       user_id: interaction.user.id
     });
-    
 
-    await interaction.reply(`${lastName} ${firstName}, you just been assigned to the company : ${selectedCompanyName}`);
+
+    await interaction.reply({ 
+      content: `${lastName} ${firstName}, you just been assigned to the company : ${selectedCompanyName}`,
+      ephemeral: true 
+    });
   }
 }

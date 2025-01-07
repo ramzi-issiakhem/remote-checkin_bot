@@ -29,7 +29,7 @@ export class ReportCommand extends Command {
 
     if (!interaction.isChatInputCommand()) return;
 
-    
+
     grantAccessToManagmentCommand(interaction);
 
 
@@ -98,7 +98,7 @@ export class ReportCommand extends Command {
           "id": employeeId,
         }
       });
-      await interaction.reply('The employee ' + employee?.last_name + ' ' + employee?.first_name + ' has worked ' + totalHours.toFixed(1) + " Hours");
+      await interaction.reply({ content: 'The employee ' + employee?.last_name + ' ' + employee?.first_name + ' has worked ' + totalHours.toFixed(1) + " Hours", ephemeral: true });
     });
 
 
