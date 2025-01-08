@@ -28,11 +28,13 @@ Company.init({
   description: {
     type: DataTypes.STRING,
     allowNull: true
-  }},
+  }
+},
   {
-  timestamps: true,
-  sequelize: sequelizeConnection,
-  paranoid: true
-});
+    tableName: "companies",
+    timestamps: true,
+    sequelize: sequelizeConnection,
+    paranoid: true
+  });
 
 export default Company;

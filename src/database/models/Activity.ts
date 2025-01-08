@@ -1,18 +1,18 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelizeConnection } from "../config";
 import { ActivityAttributes, ActivityInput, ActivityTypeEnum } from "../types";
-  
 
 
 
 
-class Activity extends Model<ActivityAttributes,ActivityInput> {
+
+class Activity extends Model<ActivityAttributes, ActivityInput> {
   public id!: number
   public type!: ActivityTypeEnum
   public employee_id!: number
 
 
-  
+
   // timestamps!
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -35,6 +35,7 @@ Activity.init({
     allowNull: false
   }
 }, {
+  tableName: "activities",
   timestamps: true,
   sequelize: sequelizeConnection,
   paranoid: true
