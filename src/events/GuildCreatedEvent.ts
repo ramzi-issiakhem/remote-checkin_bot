@@ -1,10 +1,7 @@
-import { log } from 'console';
 import { Colors, Events, Guild, PermissionFlagsBits, PermissionsBitField } from 'discord.js';
-import { commands } from '../commands';
 import { deployCommands } from '../deploy-commands';
-import { submits } from '../submits';
-import { roleName } from '../utils/constants';
 import { BaseEvent } from './BaseEvent';
+import { config } from '../config'
 
 
 
@@ -21,14 +18,21 @@ export class GuildCreatedEvent extends BaseEvent {
 
 
     try {
-
       await deployCommands({ guildId: guild.id })
 
+      const existingRole = guild.roles.cache.find(
+        (role) => role.name === config.CREATED_ROLE_NAME
+      );
+
+      if (existingRole) {
+        console.log(`Role "${existingRole.name}" already exists in server "${guild.name}"`);
+        return;  
+      }
 
       const role = await guild.roles.create({
-        name: roleName,
+        name: config.CREATED_ROLE_NAME,
         mentionable: false,
-        color: Colors.Orange,    // Color of the role
+        color: Colors.Orange,
         permissions: [PermissionFlagsBits.ViewChannel], // Permissions for the role
         reason: 'Role created automatically when the bot joined the server, it is the main role that can manage the bot',
       });

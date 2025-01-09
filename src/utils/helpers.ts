@@ -1,9 +1,8 @@
-import {  CacheType, CommandInteraction, GuildMember, Interaction, messageLink, PermissionsBitField } from "discord.js";
+import { CacheType, CommandInteraction, GuildMember, Interaction, messageLink, PermissionsBitField } from "discord.js";
 import { getLastActivityFromEmployeeId } from "../database/dal/ActivityDal";
 import { getEmployeeByUserId } from "../database/dal/EmployeeDal";
 import { ActivityTypeEnum } from "../database/types";
-import { roleName } from "./constants";
-
+import { config } from '../config';
 
 export const isStringValidTime = (time: string): boolean => {
   const regex = /^([01]?[0-9]|2[0-3]):([0-5]?[0-9])$/;
@@ -18,7 +17,7 @@ export const verifyEmployeeRegisteredAndRetrieve = async (interaction: CommandIn
       content: "You need first to register yourself as an employee by executing /remote-register",
       ephemeral: true
     });
-    
+
     return;
   };
 
@@ -89,7 +88,16 @@ export const grantAccessToManagmentCommand = (interaction: Interaction) => {
     return false;
   }
 
-  const hasAccess = doMemberHasRoleByName(interaction, roleName) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
+  let hasAccess = false;
+  for (const roleName of config.AUTHORIZED_ROLE_NAMES) {
+    const status = doMemberHasRoleByName(interaction, roleName);
+    hasAccess = status;
+    if (status) {
+      break; // Stop the iteration when the condition is met
+    }
+  }
+
+  hasAccess = hasAccess ? true : interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
 
 
   if (!hasAccess) {
