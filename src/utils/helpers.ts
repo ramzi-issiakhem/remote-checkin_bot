@@ -1,6 +1,4 @@
-import { log } from "console";
-import { ActivityType, BaseInteraction, CacheType, CommandInteraction, GuildMember, Interaction, messageLink, PermissionsBitField } from "discord.js";
-import { exit } from "process";
+import {  CacheType, CommandInteraction, GuildMember, Interaction, messageLink, PermissionsBitField } from "discord.js";
 import { getLastActivityFromEmployeeId } from "../database/dal/ActivityDal";
 import { getEmployeeByUserId } from "../database/dal/EmployeeDal";
 import { ActivityTypeEnum } from "../database/types";
@@ -20,8 +18,8 @@ export const verifyEmployeeRegisteredAndRetrieve = async (interaction: CommandIn
       content: "You need first to register yourself as an employee by executing /remote-register",
       ephemeral: true
     });
-
-    exit();
+    
+    return;
   };
 
   return employee;
