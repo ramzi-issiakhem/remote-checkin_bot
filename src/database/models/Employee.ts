@@ -3,7 +3,7 @@ import { sequelizeConnection } from "../config";
 import { EmployeeAttributes, EmployeeInput } from "../types";
 
 
- class Employee extends Model<EmployeeAttributes,EmployeeInput> {
+class Employee extends Model<EmployeeAttributes, EmployeeInput> {
   public id!: number
   public user_id!: number
   public first_name!: string
@@ -33,7 +33,7 @@ Employee.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-   user_id: {
+  user_id: {
     type: DataTypes.STRING,
     unique: true
   },
@@ -47,6 +47,7 @@ Employee.init({
     allowNull: false
   }
 }, {
+  tableName: "employees",
   timestamps: true,
   sequelize: sequelizeConnection,
   paranoid: true

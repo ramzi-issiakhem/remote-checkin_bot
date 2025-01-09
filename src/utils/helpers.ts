@@ -64,8 +64,8 @@ export const handleTimeOption = async (interaction: CommandInteraction): Promise
 
     if (today.getTime() >= (new Date()).getTime()) {
 
-      await interaction.reply({ "content": "You cannot define a time that is in the futuure", ephemeral: true });
-      await interaction.user.send("You cannot define a time that is in the futuure");
+      await interaction.reply({ "content": "You cannot define a time that is in the future", ephemeral: true });
+      await interaction.user.send("You cannot define a time that is in the future");
       return null;
     }
   };
@@ -95,7 +95,7 @@ export const grantAccessToManagmentCommand = (interaction: Interaction) => {
 
 
   if (!hasAccess) {
-    interaction.reply({ content: "You cannot execute this function, you do not have permissions ! ",ephemeral: true });
+    interaction.reply({ content: "You cannot execute this function, you do not have permissions ! ", ephemeral: true });
     return false;
   }
 

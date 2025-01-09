@@ -12,7 +12,7 @@ export class TempCheckOutCommand extends Command {
     super({
       name: "temp-check-out",
       description: 'Register your temporary checkout in the sytem',
-       })
+    })
   }
 
   async execute(interaction: CommandInteraction<CacheType>): Promise<void> {
@@ -33,7 +33,7 @@ export class TempCheckOutCommand extends Command {
 
     const lastActivity = await getLastActivityFromEmployeeId(employee.id);
     if (!lastActivity) {
-      await interaction.reply({ content: "You can't temporary checkout witout being checked-in",ephemeral: true });
+      await interaction.reply({ content: "You can't temporary checkout witout being checked-in", ephemeral: true });
       return;
     }
 
@@ -43,12 +43,12 @@ export class TempCheckOutCommand extends Command {
 
 
     await createActivity({
-      type: ActivityTypeEnum.CheckOut,
+      type: ActivityTypeEnum.TempCheckOut,
       employee_id: employee.get("id"),
       createdAt: new Date(),
     });
 
-      await interaction.reply(`${employee.last_name} ${employee.first_name} has just checked out temporarily!`);
+    await interaction.reply(`${employee.last_name} ${employee.first_name} has just checked out temporarily!`);
 
 
   }
