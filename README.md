@@ -56,10 +56,13 @@ If you prefer a more custom solution you can self-hosted on your machine.
 
 4. **Setup Environnement Variables**  
 You will find a file named .env.example with the environnement variables needed to run the Bot.
+    - DEBUG: Display differents logs and database logging
     - DISCORD_TOKEN: The discord bot token that you find at (Discord Developper Portal > Bot > Reset Token )
     - DISCORD_CLIENT_ID: The bot's client ID that you find at (Discord Developer Portal > OAuth2 > ClientID )
     - GUILD_ID: The Discord's server ID that you use as a dev server
     - PURGE_AFTER_BOOT: whether the database should be completly resync and therefore purge all the data
+    - AUTHORIZED_ROLE_NAMES:  The role names authorized to execute administrative commands
+    - CREATED_ROLE_NAME: The name for the role created automatically by your bot on any server joined.
 
 5. **Add the Bot to your server**  
     - Go to the OAuth2 > URL Generator section in the Discord Developer Portal.

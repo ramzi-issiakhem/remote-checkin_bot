@@ -26,7 +26,7 @@ export class CheckInCommand extends Command {
 
     //Verify if the user is registered in a company
     const employee = await verifyEmployeeRegisteredAndRetrieve(interaction);
-    if (!employee) return
+    if (!employee) return;
 
     //Verify if the user is not aleready checked in 
     const response = await verifyEmployeeLastActivityDifferent(interaction, employee.id, ActivityTypeEnum.CheckIn, 'You are already checked in, please checkout before checking again !');
