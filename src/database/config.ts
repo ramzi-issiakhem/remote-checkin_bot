@@ -3,7 +3,7 @@ import { Sequelize } from "sequelize";
 export const sequelizeConnection = new Sequelize('database', 'username', 'password', {
   host: 'localhost',
   dialect: 'sqlite',
-  logging: false,
+  logging: console.log,
   storage: 'database.sqlite'
 });
 

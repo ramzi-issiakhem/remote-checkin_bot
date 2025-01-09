@@ -89,7 +89,7 @@ export const grantAccessToManagmentCommand = (interaction: Interaction) => {
     return false;
   }
 
-  const hasAccess = doMemberHasRoleByName(interaction, roleName); // || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
+  const hasAccess = doMemberHasRoleByName(interaction, roleName) || interaction.member.permissions.has(PermissionsBitField.Flags.Administrator);
 
 
   if (!hasAccess) {
