@@ -43,7 +43,7 @@ export class ReportCommand extends Command {
 
     let activities: any = null;
     if (!userId) {
-      activities = await getAllActivitiesAfterCertainDate(today);
+      activities = await getAllActivitiesAfterCertainDate(today, interaction.guildId!);
     } else {
       activities = await this.getUserActivities(userId);
       if (activities == null) {

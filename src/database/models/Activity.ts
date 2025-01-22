@@ -10,6 +10,7 @@ class Activity extends Model<ActivityAttributes, ActivityInput> {
   public id!: number
   public type!: ActivityTypeEnum
   public employee_id!: number
+  public guild_id!: string
 
 
 
@@ -25,6 +26,10 @@ Activity.init({
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+  },
+  guild_id: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
   type: {
     type: DataTypes.ENUM(...Object.values(ActivityTypeEnum)),

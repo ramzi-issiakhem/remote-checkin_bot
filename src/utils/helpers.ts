@@ -10,7 +10,7 @@ export const isStringValidTime = (time: string): boolean => {
 }
 
 export const verifyEmployeeRegisteredAndRetrieve = async (interaction: CommandInteraction<CacheType>) => {
-  const employee = await getEmployeeByUserId(interaction.user.id);
+  const employee = await getEmployeeByUserId(interaction.user.id,interaction.guildId!);
   if (!employee) {
     await interaction.user.send("You need first to register yourself as an employee by executing /remote-register");
     await interaction.reply({
@@ -26,7 +26,7 @@ export const verifyEmployeeRegisteredAndRetrieve = async (interaction: CommandIn
 }
 
 export const verifyEmployeeLastActivityDifferent = async (interaction: CommandInteraction, employeeId: number, activity: ActivityTypeEnum, message: string) => {
-  const activeActivity = await getLastActivityFromEmployeeId(employeeId);
+  const activeActivity = await getLastActivityFromEmployeeId(employeeId,interaction.guildId!);
 
   if (activeActivity != null) {
     if (activeActivity.type == activity) {

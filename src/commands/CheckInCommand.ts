@@ -37,7 +37,7 @@ export class CheckInCommand extends Command {
     const { today, createdAtString } = data;
 
 
-    const lastActivity = await getLastActivityFromEmployeeId(employee.id);
+    const lastActivity = await getLastActivityFromEmployeeId(employee.id,interaction.guildId!);
     if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckOut || lastActivity.type == ActivityTypeEnum.TempCheckOut)) {
       const activityDate = new Date(lastActivity.createdAt);
 
@@ -49,6 +49,7 @@ export class CheckInCommand extends Command {
 
 
     await createActivity({
+      guild_id: interaction.guildId!,
       type: ActivityTypeEnum.CheckIn,
       employee_id: employee.get("id"),
       createdAt: today,

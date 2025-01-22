@@ -4,6 +4,7 @@ import { sequelizeConnection } from "../config";
 
 class Company extends Model {
   public id!: number
+  public guild_id!: string
   public name!: string
   public description!: string
 
@@ -20,6 +21,10 @@ Company.init({
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+  },
+  guild_id: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
   name: {
     type: DataTypes.STRING,

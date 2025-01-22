@@ -44,7 +44,7 @@ export class CheckOutCommand extends Command {
     const { today, createdAtString } = data;
 
 
-    const lastActivity = await getLastActivityFromEmployeeId(employee.id);
+    const lastActivity = await getLastActivityFromEmployeeId(employee.id,interaction.guildId!);
     if (!lastActivity) {
       await interaction.reply({content: "You can't checkout witout being checked-in",ephemeral: true});
       return;
@@ -60,6 +60,7 @@ export class CheckOutCommand extends Command {
     }
 
     await createActivity({
+      guild_id: interaction.guildId!,
       type: ActivityTypeEnum.CheckOut,
       employee_id: employee.get("id"),
       createdAt: today,

@@ -19,7 +19,7 @@ export class RemoteRegisterCommand extends Command {
 
     if (!interaction.isChatInputCommand()) return;
 
-    if (await Company.count() < 1) {
+    if (await Company.count({ where: { 'guild_id': interaction.guildId! } }) < 1) {
       await interaction.reply({
         content: "Error: No Company exist, please ask your administrator to create them !",
         ephemeral: true
@@ -28,12 +28,12 @@ export class RemoteRegisterCommand extends Command {
       return;
     }
 
-    const employee = await getEmployeeByUserId(interaction.user.id);
+    const employee = await getEmployeeByUserId(interaction.user.id, interaction.guildId!);
     if (employee != null) {
-      const company = await getEmployeeCompany(employee);
+      const company = await getEmployeeCompany(employee, interaction.guildId!);
 
       await interaction.reply({
-        content: "Error: You already registered as an employee of the company : " +  company?.name,
+        content: "Error: You already registered as an employee of the company : " + company?.name,
         ephemeral: true
       })
 
