@@ -64,12 +64,26 @@ You will find a file named .env.example with the environnement variables needed 
     - AUTHORIZED_ROLE_NAMES:  The role names authorized to execute administrative commands
     - CREATED_ROLE_NAME: The name for the role created automatically by your bot on any server joined.
 
-5. **Add the Bot to your server**  
+5. **Configure your database**  
+In this actual version, we only accept Mysql & Sqlite connection
+    - MySQL:
+        - DB_CONNECTION: Need to be set to 'mysql'.
+        - DB_DATABASE_NAME: Your database name.
+        - DB_USER_NAME: Your database username.
+        - DB_USER_PASSWORD: Your database user password.
+        - DB_HOST: Your database hostname.
+    - Sqlite:
+        - DB_CONNECTION: Need to be set to 'sqlite'.
+        - DB_STORAGE_FILE: The path to the database file.
+     
+
+
+6. **Add the Bot to your server**  
     - Go to the OAuth2 > URL Generator section in the Discord Developer Portal.
     - Select the bot scope and assign necessary permissions.
     - Copy the generated URL, paste it into your browser, and invite the bot to your server.
 
-6. **Launch your bot**
+7. **Launch your bot**
     ```bash
     npm run start
     npm run build && npm run start
