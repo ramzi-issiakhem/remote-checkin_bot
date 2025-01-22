@@ -40,7 +40,8 @@ export class CreateCompanyCommand extends Command {
 
     const createdCompanyResult = await createUniqueCompany({
       name: companyName,
-      description: companyDescription
+      description: companyDescription,
+      guild_id: interaction.guildId
     });
 
 

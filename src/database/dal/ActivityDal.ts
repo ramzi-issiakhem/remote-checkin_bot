@@ -10,18 +10,19 @@ export const createActivity = async (payload: ActivityInput): Promise<Activity> 
 }
 
 
-export const getLastActivityFromEmployeeId = async (employeeId: number) => {
+export const getLastActivityFromEmployeeId = async (employeeId: number, guildId: string) => {
   const lastActivity = await Activity.findOne({
-    where: { "employee_id": employeeId },
+    where: { "employee_id": employeeId, "guild_id": guildId },
     order: [["createdAt", 'DESC']]
   });
 
   return lastActivity;
 }
 
-export const getAllActivitiesAfterCertainDate = async (date: Date) => {
+export const getAllActivitiesAfterCertainDate = async (date: Date,guildId: string) => {
   const activities = Activity.findAll({
     where: {
+      "guild_id": guildId,
       "createdAt": {
         [Op.gte]: date
       }

@@ -10,11 +10,12 @@ export const createEmployee = async (payload: EmployeeInput): Promise<Employee> 
   return employee;
 }
 
-export const getEmployeeByUserId = async (userId: string): Promise<Employee | null> => {
+export const getEmployeeByUserId = async (userId: string, guildId: string): Promise<Employee | null> => {
 
   const employee = await Employee.findOne({
     where: {
-      "user_id": userId
+      "user_id": userId,
+      "guild_id": guildId
     }
   });
   return employee;
@@ -26,32 +27,38 @@ export interface EmployeeStatusData {
   employee: Employee,
   status: EmployeeStatusEnum
 }
-export const getEmployeesWithStatus = async (companyName?: string): Promise<Array<EmployeeStatusData>> => {
+export const getEmployeesWithStatus = async (guildId: string, companyName?: string): Promise<Array<EmployeeStatusData>> => {
 
   let returnList: Array<EmployeeStatusData> = [];
   let employees: Array<Employee> = [];
   if (companyName) {
     const company = await Company.findOne({
       where: {
-        "name": companyName
+        "name": companyName,
+        "guild_id": guildId
       }
     });
 
     if (company) {
       employees = await Employee.findAll({
         where: {
-          "company_id": company.id
+          "company_id": company.id,
+          "guild_id": guildId
         }
       });
     }
   } else {
-    employees = await Employee.findAll();
+    employees = await Employee.findAll({
+      where: {
+        "guild_id": guildId
+      }
+    });
   }
 
 
   for (let i = 0; i < employees.length; i++) {
 
-    const lastActivity = await getLastActivityFromEmployeeId(employees[i].id);
+    const lastActivity = await getLastActivityFromEmployeeId(employees[i].id, guildId);
 
     let status = EmployeeStatusEnum.NeverCheckedIn;
     if (lastActivity) {
@@ -74,11 +81,12 @@ export const getEmployeesWithStatus = async (companyName?: string): Promise<Arra
   return returnList;
 }
 
-export const getEmployeeCompany = async (employee: Employee): Promise<Company | null> => {
+export const getEmployeeCompany = async (employee: Employee, guildId: string): Promise<Company | null> => {
 
   const company = await Company.findOne({
     where: {
-      "id": employee.company_id
+      "id": employee.company_id,
+      "guild_id": guildId
     }
   });
 

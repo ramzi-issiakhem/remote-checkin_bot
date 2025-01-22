@@ -5,6 +5,7 @@ import { EmployeeAttributes, EmployeeInput } from "../types";
 
 class Employee extends Model<EmployeeAttributes, EmployeeInput> {
   public id!: number
+  public guild_id!: string
   public user_id!: number
   public first_name!: string
   public last_name!: string
@@ -24,6 +25,10 @@ Employee.init({
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+  },
+  guild_id: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
   first_name: {
     type: DataTypes.STRING,

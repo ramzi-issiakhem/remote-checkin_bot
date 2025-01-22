@@ -35,7 +35,6 @@ export class StatusCommand extends Command {
       const emoji = statusEmojis[status] || "❔"; // Default emoji for unknown statuses
       response += `**${emoji} ${status.toUpperCase()}**:\n`;
       employees.forEach((employee: Employee) => {
-        console.log(employee);
         response += `- ${employee.last_name}  ${employee.first_name}\n`;
       });
       response += "\n"; // Add a blank line between groups for readability
@@ -50,15 +49,18 @@ export class StatusCommand extends Command {
     let employees: Array<EmployeeStatusData> = [];
     if (interaction.options.get("company")) {
       const company = interaction.options.get("company")?.value as string;
-      employees = await getEmployeesWithStatus(company);
+      employees = await getEmployeesWithStatus(interaction.guildId!,company);
     } else {
-      employees = await getEmployeesWithStatus();
+      employees = await getEmployeesWithStatus(interaction.guildId!);
     }
 
     if (employees.length == 0) {
       await interaction.reply({ content: "No employees found", ephemeral: true });
       return;
     }
+
+    console.log(employees);
+
     const groupedEmployees = employees.reduce((acc: any, employee) => {
       if (!acc[employee.status]) {
         acc[employee.status] = [];

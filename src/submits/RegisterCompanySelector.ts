@@ -31,7 +31,8 @@ export class RegisterCompanySelector extends BaseModalSubmit {
       last_name: lastName,
       email: email,
       company_id: parseInt(selectedCompanyId),
-      user_id: interaction.user.id
+      user_id: interaction.user.id,
+      guild_id: interaction.guildId
     });
 
 
