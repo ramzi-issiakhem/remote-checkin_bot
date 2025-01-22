@@ -59,7 +59,6 @@ export class StatusCommand extends Command {
       return;
     }
 
-    console.log(employees);
 
     const groupedEmployees = employees.reduce((acc: any, employee) => {
       if (!acc[employee.status]) {
