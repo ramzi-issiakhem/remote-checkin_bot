@@ -69,16 +69,6 @@ export class RemoteRegisterCommand extends Command {
       .setRequired(true);
 
 
-    // Select menu input
-    const selectMenu = new StringSelectMenuBuilder()
-      .setCustomId('option_select')
-      .setPlaceholder('Choose an option')
-      .addOptions([
-        { label: 'Option 1', value: 'option_1' },
-        { label: 'Option 2', value: 'option_2' },
-        { label: 'Option 3', value: 'option_3' },
-      ]);
-
     // Add inputs to the modal
     const firstNameRow = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(firstNameInput);
     const lastNameRow = new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(lastNameInput);
