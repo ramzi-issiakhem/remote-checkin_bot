@@ -25,6 +25,7 @@ Here are the list of the available commands to execute on the server, they are f
     - /check-in: Check-in the user, you can add the time in case you forgot to check-in before.
     - /check-out: Check-out the user, you can add the time in case you forgot to check-out before.
     - /temp-check-out: Temporarily Check-out the user. 
+    - /status: Retrieve the list of users and their current status. 
 
 
 
