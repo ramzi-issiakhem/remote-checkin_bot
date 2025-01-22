@@ -35,6 +35,14 @@ export enum ActivityTypeEnum {
 }
 
 
+export enum EmployeeStatusEnum {
+  CheckedIn = "Checked In",
+  CheckedOut = "Checked Out",
+  TempCheckedOut = "Temp Checked Out",
+  NeverCheckedIn = "Never Checked In"
+}
+
+
 
 //Define the Company Model type
 export interface CompanyAttributes {
