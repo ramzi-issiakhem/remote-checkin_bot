@@ -34,7 +34,6 @@ export class RegisterModalSubmit extends BaseModalSubmit {
       return new StringSelectMenuOptionBuilder()
           .setLabel(company.name)
           .setValue(''+company.id)
-
     })
 
     const companySelector = new StringSelectMenuBuilder()
