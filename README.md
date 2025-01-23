@@ -60,6 +60,7 @@ You will find a file named .env.example with the environnement variables needed 
     - PURGE_AFTER_BOOT: whether the database should be completly resync and therefore purge all the data
     - AUTHORIZED_ROLE_NAMES:  The role names authorized to execute administrative commands
     - CREATED_ROLE_NAME: The name for the role created automatically by your bot on any server joined.
+    - TZ: Define the timezone you are using for your discord bot.
 
 5. **Configure your database**  
 In this actual version, we only accept Mysql & Sqlite connection
