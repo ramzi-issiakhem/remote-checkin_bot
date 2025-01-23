@@ -25,14 +25,14 @@ export class RegisterCompanySelector extends BaseModalSubmit {
 
     const selectedCompanyId = selectMenuInteraction.values[0];
     const selectedCompanyName = selectMenuInteraction.component.options.filter(obj => obj.value == selectedCompanyId)[0].label;
-
+      
     createEmployee({
       first_name: firstName,
       last_name: lastName,
       email: email,
       company_id: parseInt(selectedCompanyId),
       user_id: interaction.user.id,
-      guild_id: interaction.guildId
+      guild_id: interaction.guildId!
     });
 
 

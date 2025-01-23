@@ -28,7 +28,11 @@ export class RegisterModalSubmit extends BaseModalSubmit {
     });
 
 
-    const companies = await Company.findAll();
+    const companies = await Company.findAll({
+      where: {
+        guild_id: interaction.guildId
+      }
+    });
 
     const builders = companies.map((company) => {
       return new StringSelectMenuOptionBuilder()

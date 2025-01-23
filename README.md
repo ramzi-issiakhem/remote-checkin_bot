@@ -1,6 +1,6 @@
 # Remote HR Discord Bot
 
-A simple and open-source Discord bot designed to streamline remote HR operations. The bot currently supports employee registration, check-in and check-out functionalities, and generating work hour reports.
+A simple and open-source Discord bot designed to streamline remote HR operations. The bot currently supports employee registration, check-in and check-out functionalities.
 
 ## Features
 
@@ -10,15 +10,11 @@ A simple and open-source Discord bot designed to streamline remote HR operations
 2. **Check-in/Check-out System**  
    Employees can check in and check out to log their work hours.
 
-3. **Work Report**  
-   Generate reports that show how many hours each employee worked within a specific period.
-
 ---
 ## Commands
 Here are the list of the available commands to execute on the server, they are for now, divide in two categories, the public accessible and the private one executable only if you have the Specific Role created by the bot (Remote HR).
 1. Private Commands:
     - /add-company: Create a company with a specific name and description
-    - /report: Give you a simple report on the working hours by specifying the number of previous days and the company name if needed
 
 1. Public Commands:
     - /remote-register: Register the user as an employee of a specific company with all his informations.
