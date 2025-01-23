@@ -2,6 +2,7 @@ import { ActionRowBuilder, Interaction, StringSelectMenuBuilder, StringSelectMen
 import { createEmployee } from "../database/dal/EmployeeDal";
 import Employee from "../database/models/Employee";
 import { registerUserData } from "../globals";
+import { getLocalDate } from "../utils/helpers";
 import { BaseModalSubmit } from "./BaseModalSubmit";
 
 
@@ -32,7 +33,9 @@ export class RegisterCompanySelector extends BaseModalSubmit {
       email: email,
       company_id: parseInt(selectedCompanyId),
       user_id: interaction.user.id,
-      guild_id: interaction.guildId!
+      guild_id: interaction.guildId!,
+      createdAt: getLocalDate(),
+      updatedAt: getLocalDate()
     });
 
 

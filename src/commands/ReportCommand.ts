@@ -7,7 +7,7 @@ import internal from 'stream';
 import { ActivityTypeEnum } from '../database/types';
 import Employee from '../database/models/Employee';
 import { roleName } from '../utils/constants';
-import { doMemberHasRoleByName, grantAccessToManagmentCommand } from '../utils/helpers';
+import { doMemberHasRoleByName, getLocalDate, grantAccessToManagmentCommand } from '../utils/helpers';
 
 
 
@@ -36,7 +36,7 @@ export class ReportCommand extends Command {
     const dateOption: number = interaction.options.get("report-days", true).value as number;
     const userId = interaction.options.get("user-id")?.value as string | undefined;
 
-    let today = new Date();
+    let today = getLocalDate();
     today.setHours(0, 0, 0, 0);
     today.setDate(today.getDate() - dateOption);
 
@@ -85,8 +85,8 @@ export class ReportCommand extends Command {
 
         if (currentActivity.type == ActivityTypeEnum.CheckIn) {
           if (nextActivity.type === ActivityTypeEnum.CheckOut || nextActivity.type === ActivityTypeEnum.TempCheckOut) {
-            const dateOne = new Date(currentActivity.createdAt);
-            const dateTwo = new Date(nextActivity.createdAt);
+            const dateOne = getLocalDate(new Date(currentActivity.createdAt));
+            const dateTwo = getLocalDate(new Date(nextActivity.createdAt));
             const workedHours = ((dateTwo.getTime() - dateOne.getTime()) / (1000 * 60 * 60));
             totalHours = totalHours + workedHours;
           }

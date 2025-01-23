@@ -25,6 +25,8 @@ export interface EmployeeAttributes {
     last_name:string,
     email: string,
     company_id: number
+    createdAt?: Date,
+    updatedAt?: Date
 }
 export interface EmployeeInput extends Optional<EmployeeAttributes,'id' | 'guild_id'> {}
 export interface EmployeeOutput extends Required<EmployeeAttributes> {}
@@ -53,7 +55,7 @@ export interface CompanyAttributes {
     name: string,
     description?: string,
     createdAt?: Date,
-    updatedAt?: Date,
+    updatedAt?: Date
 }
 export interface CompanyInput extends Optional<CompanyAttributes, 'id' | 'name' | 'guild_id'> {}
 export interface CompanyOutput extends Required<CompanyAttributes> {}
