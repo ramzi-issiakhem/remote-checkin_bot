@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 import { config } from "../config";
 
 
-let sequelize; // Declare variable outside if/else to make it accessible for export
+let sequelize : Sequelize; // Declare variable outside if/else to make it accessible for export
 
 if (config.DB_CONNECTION === 'mysql') {
   sequelize = new Sequelize(config.DB_DATABASE_NAME, config.DB_USER_NAME, config.DB_USER_PASSWORD, {
