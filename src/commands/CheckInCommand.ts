@@ -2,7 +2,7 @@ import { Activity, CacheType, CommandInteraction } from 'discord.js';
 import { Command } from './BaseCommand';
 import { ActivityTypeEnum } from '../database/types';
 import { createActivity, getLastActivityFromEmployeeId } from '../database/dal/ActivityDal';
-import { handleTimeOption, isStringValidTime, verifyEmployeeLastActivityDifferent, verifyEmployeeRegisteredAndRetrieve } from '../utils/helpers';
+import { getLocalDate, handleTimeOption, isStringValidTime, verifyEmployeeLastActivityDifferent, verifyEmployeeRegisteredAndRetrieve } from '../utils/helpers';
 import { log } from 'console';
 
 
@@ -39,7 +39,7 @@ export class CheckInCommand extends Command {
 
     const lastActivity = await getLastActivityFromEmployeeId(employee.id,interaction.guildId!);
     if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckOut || lastActivity.type == ActivityTypeEnum.TempCheckOut)) {
-      const activityDate = new Date(lastActivity.createdAt);
+      const activityDate = getLocalDate(new Date(lastActivity.createdAt));
 
       if (today.getTime() < activityDate.getTime()) {
         interaction.reply({ content: "You can't register a checkin before a registered checkout/temporary checkout",ephemeral: true });
@@ -53,6 +53,7 @@ export class CheckInCommand extends Command {
       type: ActivityTypeEnum.CheckIn,
       employee_id: employee.get("id"),
       createdAt: today,
+      updatedAt: today,
     });
 
     if (createdAtString) {

@@ -3,7 +3,7 @@ import Activity from '../database/models/Activity';
 import { ActivityTypeEnum } from '../database/types';
 import { getEmployeeByUserId } from '../database/dal/EmployeeDal';
 import { createActivity, getLastActivityFromEmployeeId } from '../database/dal/ActivityDal';
-import { handleTimeOption, isStringValidTime, verifyEmployeeLastActivityDifferent, verifyEmployeeRegistered, verifyEmployeeRegisteredAndRetrieve } from '../utils/helpers';
+import { getLocalDate, handleTimeOption, isStringValidTime, verifyEmployeeLastActivityDifferent, verifyEmployeeRegistered, verifyEmployeeRegisteredAndRetrieve } from '../utils/helpers';
 import { CacheType, CommandInteraction } from 'discord.js';
 
 
@@ -51,7 +51,7 @@ export class CheckOutCommand extends Command {
     }
 
     if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckIn)) {
-      const activityDate = new Date(lastActivity.createdAt);
+      const activityDate = getLocalDate(new Date(lastActivity.createdAt));
 
       if (today.getTime() < activityDate.getTime()) {
         interaction.reply({ content: "You can't register a checkout before a registered checkin",ephemeral: true });
@@ -64,6 +64,7 @@ export class CheckOutCommand extends Command {
       type: ActivityTypeEnum.CheckOut,
       employee_id: employee.get("id"),
       createdAt: today,
+      updatedAt: today
     });
 
     if (createdAtString) {

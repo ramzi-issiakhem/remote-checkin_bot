@@ -1,6 +1,6 @@
 import { CacheType, CommandInteraction } from 'discord.js';
 import { Command } from './BaseCommand';
-import { grantAccessToManagmentCommand } from '../utils/helpers';
+import { getLocalDate, grantAccessToManagmentCommand } from '../utils/helpers';
 import Company from '../database/models/Company';
 import { createUniqueCompany } from '../database/dal/CompanyDal';
 
@@ -41,7 +41,9 @@ export class CreateCompanyCommand extends Command {
     const createdCompanyResult = await createUniqueCompany({
       name: companyName,
       description: companyDescription,
-      guild_id: interaction.guildId
+      guild_id: interaction.guildId!,
+      createdAt: getLocalDate(),
+      updatedAt: getLocalDate()
     });
 
 

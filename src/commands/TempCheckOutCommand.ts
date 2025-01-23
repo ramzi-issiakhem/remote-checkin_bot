@@ -1,7 +1,7 @@
 import { Command } from './BaseCommand';
 import { ActivityTypeEnum } from '../database/types';
 import { createActivity, getLastActivityFromEmployeeId } from '../database/dal/ActivityDal';
-import { handleTimeOption, isStringValidTime, verifyEmployeeLastActivityDifferent, verifyEmployeeRegisteredAndRetrieve } from '../utils/helpers';
+import { getLocalDate, handleTimeOption, isStringValidTime, verifyEmployeeLastActivityDifferent, verifyEmployeeRegisteredAndRetrieve } from '../utils/helpers';
 import { CacheType, CommandInteraction } from 'discord.js';
 
 
@@ -38,7 +38,7 @@ export class TempCheckOutCommand extends Command {
     }
 
     if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckIn)) {
-      const activityDate = new Date(lastActivity.createdAt);
+      const activityDate = getLocalDate(new Date(lastActivity.createdAt));
     }
 
 
@@ -46,7 +46,9 @@ export class TempCheckOutCommand extends Command {
       guild_id: interaction.guildId!,
       type: ActivityTypeEnum.TempCheckOut,
       employee_id: employee.get("id"),
-      createdAt: new Date(),
+      createdAt: getLocalDate(),
+      updatedAt: getLocalDate(),
+
     });
 
     await interaction.reply(`${employee.last_name} ${employee.first_name} has just checked out temporarily!`);

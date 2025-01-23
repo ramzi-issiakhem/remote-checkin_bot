@@ -39,9 +39,16 @@ export const verifyEmployeeLastActivityDifferent = async (interaction: CommandIn
   return true;
 }
 
+export const getLocalDate = (date?: Date): Date => {
+  const today = date ? new Date(date) : new Date();
+  const offset = today.getTimezoneOffset();
+  today.setMinutes(today.getMinutes() - offset);
+  return today;
+}
+
 export const handleTimeOption = async (interaction: CommandInteraction): Promise<{ today: Date, createdAtString: string | undefined } | null> => {
 
-  const today = new Date();
+  const today = getLocalDate();
   const createdAtString = interaction.options.get('time')?.value as string | undefined;
   if (createdAtString) {
 
@@ -59,7 +66,7 @@ export const handleTimeOption = async (interaction: CommandInteraction): Promise
     today.setHours(hours);
     today.setMinutes(minutes);
 
-    if (today.getTime() >= (new Date()).getTime()) {
+    if (today.getTime() >= (getLocalDate().getTime())) {
 
       await interaction.reply({ "content": "You cannot define a time that is in the future", ephemeral: true });
       await interaction.user.send("You cannot define a time that is in the future");
