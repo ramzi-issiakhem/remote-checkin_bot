@@ -2,4 +2,6 @@ node_modules
 .env
 config.json
 database.sqlite
+dist
+database.backup.sqlite
 

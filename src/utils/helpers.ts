@@ -10,7 +10,7 @@ export const isStringValidTime = (time: string): boolean => {
 }
 
 export const verifyEmployeeRegisteredAndRetrieve = async (interaction: CommandInteraction<CacheType>) => {
-  const employee = await getEmployeeByUserId(interaction.user.id,interaction.guildId!);
+  const employee = await getEmployeeByUserId(interaction.user.id, interaction.guildId!);
   if (!employee) {
     await interaction.user.send("You need first to register yourself as an employee by executing /remote-register");
     await interaction.reply({
@@ -26,7 +26,7 @@ export const verifyEmployeeRegisteredAndRetrieve = async (interaction: CommandIn
 }
 
 export const verifyEmployeeLastActivityDifferent = async (interaction: CommandInteraction, employeeId: number, activity: ActivityTypeEnum, message: string) => {
-  const activeActivity = await getLastActivityFromEmployeeId(employeeId,interaction.guildId!);
+  const activeActivity = await getLastActivityFromEmployeeId(employeeId, interaction.guildId!);
 
   if (activeActivity != null) {
     if (activeActivity.type == activity) {
@@ -46,9 +46,10 @@ export const getLocalDate = (date?: Date): Date => {
   return today;
 }
 
+
 export const handleTimeOption = async (interaction: CommandInteraction): Promise<{ today: Date, createdAtString: string | undefined } | null> => {
 
-  const today = getLocalDate();
+  const today = new Date()
   const createdAtString = interaction.options.get('time')?.value as string | undefined;
   if (createdAtString) {
 
@@ -62,11 +63,10 @@ export const handleTimeOption = async (interaction: CommandInteraction): Promise
 
     const [hours, minutes] = createdAtString.split(":").map(num => parseInt(num, 10));
 
-
     today.setHours(hours);
     today.setMinutes(minutes);
 
-    if (today.getTime() >= (getLocalDate().getTime())) {
+    if (today.getTime() >= (new Date().getTime())) {
 
       await interaction.reply({ "content": "You cannot define a time that is in the future", ephemeral: true });
       await interaction.user.send("You cannot define a time that is in the future");

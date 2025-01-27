@@ -26,7 +26,7 @@ export class RegisterCompanySelector extends BaseModalSubmit {
 
     const selectedCompanyId = selectMenuInteraction.values[0];
     const selectedCompanyName = selectMenuInteraction.component.options.filter(obj => obj.value == selectedCompanyId)[0].label;
-      
+
     createEmployee({
       first_name: firstName,
       last_name: lastName,
@@ -34,14 +34,14 @@ export class RegisterCompanySelector extends BaseModalSubmit {
       company_id: parseInt(selectedCompanyId),
       user_id: interaction.user.id,
       guild_id: interaction.guildId!,
-      createdAt: getLocalDate(),
-      updatedAt: getLocalDate()
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
 
 
-    await interaction.reply({ 
+    await interaction.reply({
       content: `${lastName} ${firstName}, you just been assigned to the company : ${selectedCompanyName}`,
-      ephemeral: true 
+      ephemeral: true
     });
   }
 }
