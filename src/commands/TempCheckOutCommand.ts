@@ -31,14 +31,14 @@ export class TempCheckOutCommand extends Command {
       return
     }
 
-    const lastActivity = await getLastActivityFromEmployeeId(employee.id,interaction.guildId!);
+    const lastActivity = await getLastActivityFromEmployeeId(employee.id, interaction.guildId!);
     if (!lastActivity) {
       await interaction.reply({ content: "You can't temporary checkout witout being checked-in", ephemeral: true });
       return;
     }
 
     if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckIn)) {
-      const activityDate = getLocalDate(new Date(lastActivity.createdAt));
+      const activityDate = new Date(lastActivity.createdAt);
     }
 
 
@@ -46,8 +46,8 @@ export class TempCheckOutCommand extends Command {
       guild_id: interaction.guildId!,
       type: ActivityTypeEnum.TempCheckOut,
       employee_id: employee.get("id"),
-      createdAt: getLocalDate(),
-      updatedAt: getLocalDate(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
 
     });
 

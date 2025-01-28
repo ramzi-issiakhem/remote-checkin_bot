@@ -24,7 +24,7 @@ export class CreateCompanyCommand extends Command {
 
     if (!interaction.isChatInputCommand()) return;
 
-    if (!grantAccessToManagmentCommand(interaction)) return ;
+    if (!grantAccessToManagmentCommand(interaction)) return;
 
     const companyName = interaction.options.get('name')?.value as string | undefined;
     const companyDescription = interaction.options.get('description')?.value as string | undefined;
@@ -42,13 +42,13 @@ export class CreateCompanyCommand extends Command {
       name: companyName,
       description: companyDescription,
       guild_id: interaction.guildId!,
-      createdAt: getLocalDate(),
-      updatedAt: getLocalDate()
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
 
 
     if (createdCompanyResult == null) {
-      await interaction.reply({content:`Error: The company already exists`, ephemeral: true});
+      await interaction.reply({ content: `Error: The company already exists`, ephemeral: true });
       return;
     } else {
       await interaction.reply({ content: `Congratulations ! You just created the company ${companyName}`, ephemeral: true });

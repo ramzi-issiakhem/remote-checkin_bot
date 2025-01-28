@@ -44,17 +44,17 @@ export class CheckOutCommand extends Command {
     const { today, createdAtString } = data;
 
 
-    const lastActivity = await getLastActivityFromEmployeeId(employee.id,interaction.guildId!);
+    const lastActivity = await getLastActivityFromEmployeeId(employee.id, interaction.guildId!);
     if (!lastActivity) {
-      await interaction.reply({content: "You can't checkout witout being checked-in",ephemeral: true});
+      await interaction.reply({ content: "You can't checkout witout being checked-in", ephemeral: true });
       return;
     }
 
     if (lastActivity && (lastActivity.type == ActivityTypeEnum.CheckIn)) {
-      const activityDate = getLocalDate(new Date(lastActivity.createdAt));
+      const activityDate = new Date(lastActivity.createdAt);
 
       if (today.getTime() < activityDate.getTime()) {
-        interaction.reply({ content: "You can't register a checkout before a registered checkin",ephemeral: true });
+        interaction.reply({ content: "You can't register a checkout before a registered checkin", ephemeral: true });
         return;
       }
     }
