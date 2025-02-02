@@ -3,6 +3,7 @@ import { Command } from './BaseCommand';
 import { EmployeeStatusData, getEmployeesWithStatus } from '../database/dal/EmployeeDal';
 import { EmployeeStatusEnum } from '../database/types';
 import Employee from '../database/models/Employee';
+import { grantAccessToManagmentCommand } from '../utils/helpers';
 
 
 
@@ -45,11 +46,15 @@ export class StatusCommand extends Command {
   async execute(interaction: CommandInteraction<CacheType>): Promise<void> {
 
     if (!interaction.isChatInputCommand()) return;
+    if (!grantAccessToManagmentCommand(interaction)) {
+      await interaction.reply({ content: "You don't have access to run this command", ephemeral: true });
+      return;
+    }
 
     let employees: Array<EmployeeStatusData> = [];
     if (interaction.options.get("company")) {
       const company = interaction.options.get("company")?.value as string;
-      employees = await getEmployeesWithStatus(interaction.guildId!,company);
+      employees = await getEmployeesWithStatus(interaction.guildId!, company);
     } else {
       employees = await getEmployeesWithStatus(interaction.guildId!);
     }
